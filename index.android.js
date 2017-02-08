@@ -14,7 +14,8 @@ export default class mickey extends Component {
   constructor(props){
     super(props)
     this.state = {
-      route: { name: START }
+      route: { name: SEARCH },
+      server: "http://174.129.159.174:9000"
     }
   }
   gotoSearch(navigator, pop) {
@@ -41,7 +42,7 @@ export default class mickey extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ name:START }}
+        initialRoute={{ name:SEARCH }}
         renderScene={(route, navigator) => {
           switch(route.name) {
             case START: return <Start

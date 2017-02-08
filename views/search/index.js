@@ -19,6 +19,7 @@ export default class Search extends Component {
     const headers = new Headers({
       'content-length': body.length
     })
+    this.setState({searchImage: body})
     return fetch(`${this.props.server}/search`, {
       method: 'POST',
       body,
@@ -26,8 +27,9 @@ export default class Search extends Component {
     })
   }
   setData(data) {
-    this.setState({ loading: false}, () => {
+    this.setState({ loading: false }, () => {
       this.props.onNext(JSON.parse(data._bodyInit))
+      this.setState({searchImage: null })
     })
     
   }
@@ -44,6 +46,12 @@ export default class Search extends Component {
   render() {
     return (
       <View style={styles.container}>
+        {
+          (this.state.searchImage) ? <View><Image
+                  source={{uri: `data:image/png;base64,${this.state.searchImage}`}}
+                  style={styles.searchImage}
+                /><Text>Searching db...</Text></View> : null
+        }
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -52,6 +60,7 @@ export default class Search extends Component {
           aspect={Camera.constants.Aspect.fill}
           captureMode={Camera.constants.CaptureMode.still}
           captureTarger={Camera.constants.CaptureTarget.memory}
+          captureQuality={Camera.constants.CaptureQuality.low}
           >
           <Text style={styles.capture} onPress={this.takePicture}>[
             {

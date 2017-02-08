@@ -18,5 +18,10 @@ export default StyleSheet.create({
     color: '#000',
     padding: 10,
     margin: 40
+  },
+  searchImage: {
+    flex: 0,
+    height: 100,
+    width: 100
   }
 });
